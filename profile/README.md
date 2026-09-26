@@ -52,6 +52,15 @@ server.
   operators, `\operatorname`, `\bmod`/`\pmod`, long arrows) → vector output.
 - [**tex**](https://github.com/go-tex/tex) — a lightweight LaTeX-subset document
   processor → semantic HTML (macro expansion + structure + math), `js/wasm`-ready.
+- [**pdfrender**](https://github.com/go-tex/pdfrender) — a `CGO=0` rasteriser for
+  PDF figures, plugged into the engine's `RasterizePDF` seam so
+  `\includegraphics{fig.pdf}` draws pixels instead of a framed placeholder. A
+  separate module on purpose, to keep the engine and its wasm build free of a
+  heavy dependency.
+- [**texmf**](https://github.com/go-tex/texmf) — the support trees a document
+  needs, on a machine with no TeX distribution. It **redistributes nothing**:
+  it fetches pinned, SHA-256-verified upstream macro source into a user cache
+  and supplies `Tree.Resolve` to the engine, and never fetches speculatively.
 - [**brand**](https://github.com/go-tex/brand) — logos & icons.
 - [**docs**](https://go-tex.github.io/docs/) · [landing](https://go-tex.github.io/)
 
