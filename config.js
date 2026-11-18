@@ -19,7 +19,19 @@ module.exports = {
   autodiscoverFilter: ['go-tex/**'],
   onboarding: false,
   requireConfig: 'optional',
-  dependencyDashboard: true,
+  // ⛔ THE OBJECT FORM, NOT THE BOOLEAN. From renovatebot/github-action
+  // v46.3.14 the boolean is reported as a config needing migration, and the
+  // validate job fails on it:
+  //
+  //   WARN: Config migration diff:
+  //   -   "dependencyDashboard": true,
+  //   +   "dependencyDashboard": { "enabled": true },
+  //   ##[error]Process completed with exit code 1
+  //
+  // The behaviour is unchanged; only the spelling is. Read from the failing
+  // run's own log (go-tex/.github#27, job 133719941015), not inferred from the
+  // version bump.
+  dependencyDashboard: { enabled: true },
   repositoryCache: 'enabled',
   // default.json beside this file is a PRESET, and a preset reaches a
   // repository only through an `extends` that names it. Sitting in the
